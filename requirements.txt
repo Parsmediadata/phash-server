@@ -1,4 +1,6 @@
 flask
 pillow
 imagehash
+numpy
 pip==24.0
+
