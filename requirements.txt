@@ -1,6 +1,6 @@
-flask
-pillow
-imagehash
+fastapi
+uvicorn
+face_recognition
 numpy
-pip==24.0
-
+python-multipart
+pillow
