@@ -1,24 +1,21 @@
 from fastapi import FastAPI, UploadFile, File
 import face_recognition
 import io
+from PIL import Image
 
 app = FastAPI()
 
 @app.get("/")
-def root():
-    return {"status": "سرور فعال است"}
+def home():
+    return {"message": "Face encoding API is running"}
 
 @app.post("/encode_face/")
 async def encode_face(file: UploadFile = File(...)):
-    # خواندن تصویر
     image_bytes = await file.read()
-    image_stream = io.BytesIO(image_bytes)
-
-    # پردازش چهره
-    image = face_recognition.load_image_file(image_stream)
+    image = face_recognition.load_image_file(io.BytesIO(image_bytes))
     encodings = face_recognition.face_encodings(image)
 
     if not encodings:
-        return {"error": "هیچ چهره‌ای یافت نشد"}
+        return {"error": "No face found"}
 
     return {"encoding": encodings[0].tolist()}
